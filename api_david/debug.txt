@@ -1,0 +1,98 @@
+Apache puede escribir aquíMétodo: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => PROYECTO TÉCNICO Requisitos funcionales Hodei, Buseif, Miguel (1).pdf
+            [full_path] => PROYECTO TÉCNICO Requisitos funcionales Hodei, Buseif, Miguel (1).pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php673F.tmp
+            [error] => 0
+            [size] => 309300
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => PROYECTO TÉCNICO Requisitos funcionales Hodei, Buseif, Miguel (1).pdf
+            [full_path] => PROYECTO TÉCNICO Requisitos funcionales Hodei, Buseif, Miguel (1).pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php5DF3.tmp
+            [error] => 0
+            [size] => 309300
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => T5.pdf
+            [full_path] => T5.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php6A54.tmp
+            [error] => 0
+            [size] => 5808800
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => T5.pdf
+            [full_path] => T5.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php6A53.tmp
+            [error] => 0
+            [size] => 5808800
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => Práctico RA6.pdf
+            [full_path] => Práctico RA6.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php11E7.tmp
+            [error] => 0
+            [size] => 268322
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => TEST RESPASO UT6.pdf
+            [full_path] => TEST RESPASO UT6.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php60F2.tmp
+            [error] => 0
+            [size] => 135295
+        )
+
+)
+Método: POST
+Array
+(
+    [archivo] => Array
+        (
+            [name] => ENUNCIADO DE PRÁCTICA_GRUPAL_DWEC_20251205.pdf
+            [full_path] => ENUNCIADO DE PRÁCTICA_GRUPAL_DWEC_20251205.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php5DB7.tmp
+            [error] => 0
+            [size] => 236720
+        )
+
+)
