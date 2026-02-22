@@ -1,0 +1,22 @@
+[
+    {
+        "fecha": "2026-02-20T13:34:24.830Z",
+        "duracion": 1,
+        "entrenador": "Entrenador Demo"
+    },
+    {
+        "fecha": "2026-02-20T13:43:19.512Z",
+        "duracion": 1,
+        "entrenador": "Entrenador Demo"
+    },
+    {
+        "fecha": "2026-02-20T14:18:50.033Z",
+        "duracion": 3,
+        "entrenador": "Entrenador Demo"
+    },
+    {
+        "fecha": "2026-02-20T14:19:12.865Z",
+        "duracion": 3,
+        "entrenador": "Entrenador Demo"
+    }
+]

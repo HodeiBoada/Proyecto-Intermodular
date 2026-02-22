@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>FitnessGym - Sesión Privada</title>
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <link rel="stylesheet" href="estilos.css" />
+  <script src="prueba.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🏋️ FITNESSGYM</h1>
+    <div class="subtitle">Sesión privada con tu entrenador personal</div>
+
+    <div class="alert alert-success">
+      🔐 Esta videollamada está cifrada de extremo a extremo. Solo tú y tu entrenador tenéis acceso.
+    </div>
+
+    <div class="card">
+      <h2>📹 Iniciar sesión de entrenamiento</h2>
+      <div class="room-controls">
+        <input type="text" id="room-name" class="room-input" placeholder="Nombre de la sala privada" value="fitnessgym-sesion" />
+        <button onclick="joinRoom()" class="btn">🎥 Unirse a la videollamada</button>
+        <button onclick="solicitarAyuda()" class="btn btn-secondary">🆘 Solicitar ayuda</button>
+      </div>
+      <div id="room-status">
+        <span class="active-room">🟢 Sala activa: <span id="current-room">fitnessgym-sesion</span></span>
+      </div>
+      <div id="jitsi-container"></div>
+
+      <!-- 🔴 Botón externo para colgar -->
+      <div style="margin-top: 10px;">
+        <button id="boton-colgar" class="btn btn-danger" style="display: none;">🔴 Colgar</button>
+      </div>
+
+      <p class="note">💬 Tu entrenador puede compartir pantalla, darte feedback en tiempo real y ayudarte con tu rutina o dieta.</p>
+    </div>
+
+    <div class="card">
+      <h2>📎 Compartir archivo (PDF)</h2>
+      <input type="file" id="upload-pdf" name="archivo" accept="application/pdf" />
+      <p class="note">Puedes subir tu rutina o dieta en PDF para compartirla durante la sesión.</p>
+      <ul id="lista-archivos" class="historial-list"></ul>
+    </div>
+
+    <div class="card">
+      <h2>📅 Historial de sesiones</h2>
+      <ul id="historial-sesiones" class="historial-list"></ul>
+    </div>
+  </div>
+</body>
+</html>
