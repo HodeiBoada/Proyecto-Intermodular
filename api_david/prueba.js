@@ -6,7 +6,7 @@ let nombreSala = '';
 function joinRoom() {
   const roomName = document.getElementById('room-name').value.trim();
   if (!roomName) {
-    alert('❌ Debes introducir un nombre de sala');
+    alert('Debes introducir un nombre de sala');
     return;
   }
 
@@ -43,7 +43,7 @@ function joinRoom() {
 
   try {
     jitsiApi = new JitsiMeetExternalAPI(domain, options);
-    console.log('✅ Conectado a la sala:', nombreSala);
+    console.log('Conectado a la sala:', nombreSala);
 
     inicioLlamada = new Date();
     llamadaGuardada = false;
@@ -52,7 +52,7 @@ function joinRoom() {
 
   } catch (error) {
     console.error('Error al conectar con Jitsi:', error);
-    alert('❌ No se pudo conectar con la sala. Intenta de nuevo.');
+    alert('No se pudo conectar con la sala. Intenta de nuevo.');
   }
 }
 
@@ -78,10 +78,10 @@ function guardarLlamada() {
       body: JSON.stringify(payload),
       keepalive: true
     })
-    .then(() => console.log('📡 Llamada enviada con fetch + keepalive'))
-    .catch(() => console.warn('⚠️ Error al enviar con fetch + keepalive'));
+    .then(() => console.log('Llamada enviada con fetch + keepalive'))
+    .catch(() => console.warn('Error al enviar con fetch + keepalive'));
   } else {
-    console.log('⏱️ Llamada demasiado corta, no se guarda');
+    console.log('Llamada demasiado corta, no se guarda');
   }
 
   llamadaGuardada = true;
@@ -107,14 +107,14 @@ function enviarNotificacion(tipo, contenido) {
   .then(res => res.json())
   .then(data => {
     if (data.status === 'ok') {
-      console.log(`✅ Notificación enviada: ${tipo}`);
+      console.log(`Notificación enviada: ${tipo}`);
     }
   })
   .catch(err => console.error('Error enviando notificación:', err));
 }
 
 function solicitarAyuda() {
-  alert("📨 Tu solicitud ha sido enviada. Un entrenador será notificado.");
+  alert("Tu solicitud ha sido enviada. Un entrenador será notificado.");
   enviarNotificacion(
     'ayuda',
     'El usuario ha solicitado ayuda para unirse a la videollamada.'
@@ -135,7 +135,7 @@ function mostrarHistorial() {
           month: '2-digit',
           year: '2-digit'
         });
-        return `<li>📞 Llamada del ${fechaFormateada} — ⏱️ ${s.duracion} min</li>`;
+        return `<li>Llamada del ${fechaFormateada} — ${s.duracion} min</li>`;
       }).join('');
     })
     .catch(err => console.error('Error leyendo historial:', err));
@@ -173,13 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
           if (data.status === 'ok') {
-            alert(`📁 Archivo "${data.archivo}" subido correctamente.`);
+            alert(`Archivo "${data.archivo}" subido correctamente.`);
           } else {
-            alert('❌ Error al subir el archivo: ' + data.message);
+            alert('Error al subir el archivo: ' + data.message);
           }
         });
       } else {
-        alert('❌ Solo se permiten archivos PDF.');
+        alert('Solo se permiten archivos PDF.');
       }
     });
   }
@@ -195,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
         data.forEach(n => {
           const item = document.createElement('li');
           if (n.tipo === 'archivo') {
-            item.innerHTML = `📄 <a href="uploads/${n.contenido}" target="_blank">${n.contenido}</a>`;
+            item.innerHTML = `<a href="uploads/${n.contenido}" target="_blank">${n.contenido}</a>`;
           } else {
-            item.textContent = `🆘 ${n.contenido}`;
+            item.textContent = `${n.contenido}`;
           }
           lista.appendChild(item);
         });
