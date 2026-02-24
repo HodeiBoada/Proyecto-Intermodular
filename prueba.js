@@ -172,7 +172,7 @@ $(document).ready(() => {
 
     new Dropzone('#zona-subida', {
       url: "subir_archivo.php",
-      acceptedFiles: "application/pdf",
+      acceptedFiles: ".pdf",
       maxFilesize: 5,
       dictDefaultMessage: "Arrastra tu archivo PDF aquí o haz clic para subir",
       init: function () {
