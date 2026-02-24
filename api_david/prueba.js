@@ -3,15 +3,19 @@ let inicioLlamada = null;
 let llamadaGuardada = false;
 let nombreSala = '';
 
+/** -----------------------------
+ * FUNCIONES JITSI
+ * -----------------------------
+ */
 function joinRoom() {
-  const roomName = document.getElementById('room-name').value.trim();
+  let roomName = $('#room-name').val().trim();
   if (!roomName) {
-    alert('Debes introducir un nombre de sala');
+    toastr.warning('Debes introducir un nombre de sala');
     return;
   }
 
   nombreSala = roomName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
-  document.getElementById('current-room').textContent = nombreSala;
+  $('#current-room').text(nombreSala);
 
   if (jitsiApi) {
     jitsiApi.dispose();
@@ -44,15 +48,12 @@ function joinRoom() {
   try {
     jitsiApi = new JitsiMeetExternalAPI(domain, options);
     console.log('Conectado a la sala:', nombreSala);
-
     inicioLlamada = new Date();
     llamadaGuardada = false;
-
-    document.getElementById('boton-colgar').style.display = 'inline-block';
-
+    $('#boton-colgar').show();
   } catch (error) {
     console.error('Error al conectar con Jitsi:', error);
-    alert('No se pudo conectar con la sala. Intenta de nuevo.');
+    toastr.error('No se pudo conectar con la sala. Intenta de nuevo.');
   }
 }
 
@@ -72,14 +73,12 @@ function guardarLlamada() {
 
     fetch('guardar_llamada.php', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
       keepalive: true
     })
-    .then(() => console.log('Llamada enviada con fetch + keepalive'))
-    .catch(() => console.warn('Error al enviar con fetch + keepalive'));
+      .then(() => console.log('Llamada guardada con fetch + keepalive'))
+      .catch(() => console.warn('Error al enviar llamada'));
   } else {
     console.log('Llamada demasiado corta, no se guarda');
   }
@@ -93,42 +92,42 @@ function limpiarJitsi() {
     jitsiApi.dispose();
     jitsiApi = null;
   }
-  document.getElementById('current-room').textContent = '';
-  document.getElementById('jitsi-container').innerHTML = '';
-  document.getElementById('boton-colgar').style.display = 'none';
+  $('#current-room').text('');
+  $('#jitsi-container').html('');
+  $('#boton-colgar').hide();
 }
 
+/** -----------------------------
+ * FUNCIONES NOTIFICACIONES
+ * -----------------------------
+ */
 function enviarNotificacion(tipo, contenido) {
-  fetch('enviar_notificacion.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `tipo=${encodeURIComponent(tipo)}&contenido=${encodeURIComponent(contenido)}`
-  })
-  .then(res => res.json())
-  .then(data => {
+  $.post('enviar_notificacion.php', { tipo, contenido }, (data) => {
     if (data.status === 'ok') {
-      console.log(`Notificación enviada: ${tipo}`);
+      toastr.info(`Notificación enviada: ${tipo}`);
     }
-  })
-  .catch(err => console.error('Error enviando notificación:', err));
+  }, 'json').fail(() => toastr.error('Error enviando notificación'));
 }
 
 function solicitarAyuda() {
-  alert("Tu solicitud ha sido enviada. Un entrenador será notificado.");
+  toastr.info("Tu solicitud ha sido enviada. Un entrenador será notificado.");
   enviarNotificacion(
     'ayuda',
     'El usuario ha solicitado ayuda para unirse a la videollamada.'
   );
 }
 
+/** -----------------------------
+ * HISTORIAL DE SESIONES
+ * -----------------------------
+ */
 function mostrarHistorial() {
-  fetch('leer_historial.php')
-    .then(res => res.json())
-    .then(historial => {
-      const contenedor = document.getElementById('historial-sesiones');
-      if (!contenedor) return;
+  $.getJSON('leer_historial.php', (historial) => {
+    const contenedor = $('#historial-sesiones');
+    if (!contenedor.length) return;
 
-      contenedor.innerHTML = historial.map(s => {
+    contenedor.html(
+      historial.map(s => {
         const fecha = new Date(s.fecha);
         const fechaFormateada = fecha.toLocaleDateString('es-ES', {
           day: '2-digit',
@@ -136,71 +135,81 @@ function mostrarHistorial() {
           year: '2-digit'
         });
         return `<li>Llamada del ${fechaFormateada} — ${s.duracion} min</li>`;
-      }).join('');
-    })
-    .catch(err => console.error('Error leyendo historial:', err));
+      }).join('')
+    );
+  }).fail(() => toastr.error('Error leyendo historial'));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+/** -----------------------------
+ * DOM READY
+ * -----------------------------
+ */
+$(document).ready(() => {
+
   mostrarHistorial();
 
-  const botonColgar = document.getElementById('boton-colgar');
-  if (botonColgar) {
-    botonColgar.addEventListener('click', () => {
-      guardarLlamada();
-      if (jitsiApi) {
-        jitsiApi.executeCommand('hangup');
-      }
-      setTimeout(() => {
-        limpiarJitsi();
-        mostrarHistorial();
-      }, 500);
-    });
-  }
+  // Botones Jitsi
+  $('#boton-unirse').on('click', joinRoom);
+  $('#boton-ayuda').on('click', solicitarAyuda);
+  $('#boton-colgar').on('click', () => {
+    guardarLlamada();
+    if (jitsiApi) jitsiApi.executeCommand('hangup');
 
-  const uploadInput = document.getElementById('upload-pdf');
-  if (uploadInput) {
-    uploadInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file && file.type === 'application/pdf') {
-        const formData = new FormData();
-        formData.append('archivo', file);
+    setTimeout(() => {
+      limpiarJitsi();
+      mostrarHistorial();
+    }, 500);
+  });
 
-        fetch('subir_archivo.php', {
-          method: 'POST',
-          body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'ok') {
-            alert(`Archivo "${data.archivo}" subido correctamente.`);
+  /** -----------------------------
+   * DROPZONE
+   * -----------------------------
+   */
+  const $zona = $('#zona-subida');
+  if ($zona.length) {
+    Dropzone.autoDiscover = false;
+    $zona.addClass('dropzone');
+
+    new Dropzone('#zona-subida', {
+      url: "subir_archivo.php",
+      acceptedFiles: "application/pdf",
+      maxFilesize: 5,
+      dictDefaultMessage: "Arrastra tu archivo PDF aquí o haz clic para subir",
+      init: function () {
+        this.on("success", function(file, response){
+          if(response.status === 'ok') {
+            toastr.success(`Archivo "${response.archivo}" subido correctamente.`);
           } else {
-            alert('Error al subir el archivo: ' + data.message);
+            toastr.error('Error al subir el archivo: ' + response.message);
           }
         });
-      } else {
-        alert('Solo se permiten archivos PDF.');
+        this.on("error", function () {
+          toastr.error('Error al subir el archivo.');
+        });
       }
     });
   }
 
+  /** -----------------------------
+   * LISTA DE ARCHIVOS / NOTIFICACIONES
+   * -----------------------------
+   */
   setInterval(() => {
-    fetch('leer_notificaciones.php')
-      .then(res => res.json())
-      .then(data => {
-        const lista = document.getElementById('lista-archivos');
-        if (!lista) return;
+    $.getJSON('leer_notificaciones.php', (data) => {
+      const $lista = $('#lista-archivos');
+      if (!$lista.length) return;
 
-        lista.innerHTML = '';
-        data.forEach(n => {
-          const item = document.createElement('li');
-          if (n.tipo === 'archivo') {
-            item.innerHTML = `<a href="uploads/${n.contenido}" target="_blank">${n.contenido}</a>`;
-          } else {
-            item.textContent = `${n.contenido}`;
-          }
-          lista.appendChild(item);
-        });
+      $lista.empty();
+      data.forEach(n => {
+        const $item = $('<li>');
+        if(n.tipo === 'archivo') {
+          $item.html(`<a href="uploads/${n.contenido}" target="_blank">${n.contenido}</a>`);
+        } else {
+          $item.text(n.contenido);
+        }
+        $lista.append($item);
       });
+    });
   }, 5000);
+
 });

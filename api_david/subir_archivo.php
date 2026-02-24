@@ -5,8 +5,10 @@ file_put_contents('debug.txt', print_r($_FILES, true), FILE_APPEND);
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo'])) {
-    $archivo = $_FILES['archivo'];
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+    $archivo = $_FILES['file'];
     $nombre = basename($archivo['name']);
     $destino = 'uploads/' . $nombre;
 
