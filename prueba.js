@@ -1,12 +1,7 @@
 let jitsiApi = null;
 let inicioLlamada = null;
 let llamadaGuardada = false;
-let nombreSala = '';
 
-/** -----------------------------
- * FUNCIONES JITSI
- * -----------------------------
- */
 function joinRoom() {
   let roomName = $('#room-name').val().trim();
   if (!roomName) {
@@ -97,12 +92,8 @@ function limpiarJitsi() {
   $('#boton-colgar').hide();
 }
 
-/** -----------------------------
- * FUNCIONES NOTIFICACIONES
- * -----------------------------
- */
 function enviarNotificacion(tipo, contenido) {
-  $.post('enviar_notificacion.php', { tipo, contenido }, (data) => {
+  $.post('enviar_notificacion.php', { tipo, contenido, sala: nombreSala }, (data) => {
     if (data.status === 'ok') {
       toastr.info(`Notificación enviada: ${tipo}`);
     }
@@ -117,12 +108,8 @@ function solicitarAyuda() {
   );
 }
 
-/** -----------------------------
- * HISTORIAL DE SESIONES
- * -----------------------------
- */
 function mostrarHistorial() {
-  $.getJSON('leer_historial.php', (historial) => {
+  $.getJSON('leer_historial.php', { sala: nombreSala }, (historial) => {
     const contenedor = $('#historial-sesiones');
     if (!contenedor.length) return;
 
@@ -140,15 +127,10 @@ function mostrarHistorial() {
   }).fail(() => toastr.error('Error leyendo historial'));
 }
 
-/** -----------------------------
- * DOM READY
- * -----------------------------
- */
-$(document).ready(() => {
 
+$(document).ready(() => {
   mostrarHistorial();
 
-  // Botones Jitsi
   $('#boton-unirse').on('click', joinRoom);
   $('#boton-ayuda').on('click', solicitarAyuda);
   $('#boton-colgar').on('click', () => {
@@ -161,10 +143,6 @@ $(document).ready(() => {
     }, 500);
   });
 
-  /** -----------------------------
-   * DROPZONE
-   * -----------------------------
-   */
   const $zona = $('#zona-subida');
   if ($zona.length) {
     Dropzone.autoDiscover = false;
@@ -175,6 +153,9 @@ $(document).ready(() => {
       acceptedFiles: ".pdf",
       maxFilesize: 5,
       dictDefaultMessage: "Arrastra tu archivo PDF aquí o haz clic para subir",
+      params: function () {
+        return { sala: nombreSala };
+      },
       init: function () {
         this.on("success", function(file, response){
           if(response.status === 'ok') {
@@ -190,26 +171,22 @@ $(document).ready(() => {
     });
   }
 
-  /** -----------------------------
-   * LISTA DE ARCHIVOS / NOTIFICACIONES
-   * -----------------------------
-   */
   setInterval(() => {
-    $.getJSON('leer_notificaciones.php', (data) => {
-      const $lista = $('#lista-archivos');
-      if (!$lista.length) return;
+  $.getJSON('leer_notificaciones.php', { sala: nombreSala }, (data) => {
+    const $lista = $('#lista-archivos');
+    if (!$lista.length) return;
 
-      $lista.empty();
-      data.forEach(n => {
-        const $item = $('<li>');
-        if(n.tipo === 'archivo') {
-          $item.html(`<a href="uploads/${n.contenido}" target="_blank">${n.contenido}</a>`);
-        } else {
-          $item.text(n.contenido);
-        }
-        $lista.append($item);
-      });
+    $lista.empty();
+    data.forEach(n => {
+      const $item = $('<li>');
+      if(n.tipo === 'archivo') {
+        $item.html(`<a href="uploads/${n.contenido}" target="_blank">📎 ${n.contenido}</a>`);
+      } else {
+        $item.text(n.contenido);
+      }
+      $lista.append($item);
     });
-  }, 5000);
+  });
+}, 5000);
 
 });

@@ -1,37 +1,56 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+session_start();
+include 'seguridad.php';
+verificarRoles(['usuario', 'entrenador']);
+include 'conexion.php';
 
 header('Content-Type: application/json');
 
-// Leer el cuerpo JSON enviado por sendBeacon
+$id_sesion = $_SESSION['id_usuario'];
+$rol = $_SESSION['rol'];
+
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-// Validar que los datos estén presentes
-if (!$data || !isset($data['fecha'], $data['duracion'])) {
-  http_response_code(400);
-  echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
-  exit;
+if (!$data || !isset($data['fecha'], $data['fin'], $data['duracion'], $data['sala'])) {
+    http_response_code(400);
+    echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
+    exit;
 }
 
-$archivo = 'historial_llamadas.json';
-$llamadas = [];
+$fecha_inicio = date('Y-m-d H:i:s', strtotime($data['fecha']));
+$fecha_fin = date('Y-m-d H:i:s', strtotime($data['fin']));
+$duracion = (int)$data['duracion'];
+$sala = $data['sala'];
 
-if (file_exists($archivo)) {
-  $json = file_get_contents($archivo);
-  $llamadas = json_decode($json, true) ?: [];
+// Extraer IDs desde el nombre de la sala
+$partes = explode('-', $sala);
+if (count($partes) === 3 && $partes[0] === 'sala') {
+    $id_entrenador = intval($partes[1]);
+    $id_usuario = intval($partes[2]);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Formato de sala inválido']);
+    exit;
 }
 
-// Agregar nueva llamada
-$llamadas[] = [
-  'fecha' => $data['fecha'],
-  'duracion' => $data['duracion'],
-  'entrenador' => 'Entrenador Demo'
-];
+// Validación adicional: asegurar que el usuario actual pertenece a esta sala
+if (
+    ($rol === 'usuario' && $id_sesion !== $id_usuario) ||
+    ($rol === 'entrenador' && $id_sesion !== $id_entrenador)
+) {
+    echo json_encode(['status' => 'error', 'message' => 'No tienes permiso para registrar esta llamada']);
+    exit;
+}
 
-// Guardar de nuevo el archivo
-file_put_contents($archivo, json_encode($llamadas, JSON_PRETTY_PRINT));
+// Guardar llamada
+$sql = "INSERT INTO historial_llamadas (id_usuario, id_entrenador, sala, fecha_inicio, fecha_fin, duracion) 
+        VALUES (?, ?, ?, ?, ?, ?)";
+$stmt = mysqli_prepare($conexion, $sql);
+mysqli_stmt_bind_param($stmt, "iisssi", $id_usuario, $id_entrenador, $sala, $fecha_inicio, $fecha_fin, $duracion);
+$ok = mysqli_stmt_execute($stmt);
 
-// Respuesta (aunque sendBeacon no la usará)
-echo json_encode(['status' => 'ok']);
+if ($ok) {
+    echo json_encode(['status' => 'ok']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Error al guardar llamada']);
+}

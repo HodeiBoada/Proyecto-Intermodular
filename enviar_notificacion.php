@@ -1,25 +1,40 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tipo = $_POST['tipo'] ?? '';
-    $contenido = $_POST['contenido'] ?? '';
+session_start();
+include 'seguridad.php';
+verificarRoles(['usuario', 'entrenador']);
+include 'conexion.php';
 
-    $archivo = 'notificaciones.json';
-    $notificaciones = [];
+$id_usuario = $_SESSION['id_usuario'];
+$rol = $_SESSION['rol'];
 
-    if (file_exists($archivo)) {
-        $json = file_get_contents($archivo);
-        $notificaciones = json_decode($json, true);
-    }
+$tipo = $_POST['tipo'] ?? null;
+$contenido = $_POST['contenido'] ?? '';
+$sala = $_POST['sala'] ?? '';
 
-    $notificaciones[] = [
-        'tipo' => $tipo,
-        'contenido' => $contenido,
-        'timestamp' => time()
-    ];
+if (!$tipo || !$sala) {
+    echo json_encode(['status' => 'error', 'message' => 'Faltan datos']);
+    exit;
+}
 
-    file_put_contents($archivo, json_encode($notificaciones, JSON_PRETTY_PRINT));
+// Extraer IDs desde el nombre de la sala
+$partes = explode('-', $sala);
+if (count($partes) === 3 && $partes[0] === 'sala') {
+    $id_entrenador = intval($partes[1]);
+    $id_usuario_destino = intval($partes[2]);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Formato de sala inválido']);
+    exit;
+}
+
+// Insertar notificación
+$sql = "INSERT INTO notificaciones_sala (id_usuario, id_entrenador, tipo, contenido) 
+        VALUES (?, ?, ?, ?)";
+$stmt = mysqli_prepare($conexion, $sql);
+mysqli_stmt_bind_param($stmt, "iiss", $id_usuario_destino, $id_entrenador, $tipo, $contenido);
+$ok = mysqli_stmt_execute($stmt);
+
+if ($ok) {
     echo json_encode(['status' => 'ok']);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
+    echo json_encode(['status' => 'error', 'message' => 'Error al guardar notificación']);
 }
-?>
