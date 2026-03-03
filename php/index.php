@@ -50,14 +50,14 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
-  <link rel="stylesheet" href="estilos.css" />
-  <link rel="stylesheet" href="estilo_global.css">
+  <link rel="stylesheet" href="../css/estilos.css" />
+  <link rel="stylesheet" href="../css/estilo_global.css">
   <script>
     const idUsuario = <?= json_encode($id_usuario) ?>;
     const idEntrenador = <?= json_encode($id_entrenador) ?>;
     let nombreSala = "<?= $nombre_sala ?>";
   </script>
-  <script src="prueba.js" defer></script>
+  <script src="../js/prueba.js" defer></script>
 
 </head>
 <body>

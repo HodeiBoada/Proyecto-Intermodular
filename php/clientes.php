@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($res)) {
 <head>
   <meta charset="UTF-8">
   <title>Mis Clientes</title>
-  <link rel="stylesheet" href="estilo_global.css">
+  <link rel="stylesheet" href="../css/estilo_global.css">
 </head>
 <body>
   <?php include 'navbar.php'; ?> <div class="container">
