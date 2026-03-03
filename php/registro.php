@@ -1,6 +1,6 @@
 <?php
 // --- BLOQUE 1: LÓGICA PHP ---
-include 'conexion.php';
+include './utilidades/conexion.php';
 $mensaje_error = "";
 $registro_exitoso = false; // Variable bandera para el JavaScript
 

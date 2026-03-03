@@ -1,8 +1,8 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 // Mantenemos el acceso para ambos
 verificarRoles(['administrador', 'entrenador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $sql = "SELECT r.id_rutina, r.nombre, r.objetivo, u.nombre AS creador_nombre, u.apellido1 AS creador_apellido
         FROM rutinas r
@@ -24,7 +24,7 @@ $resultado = mysqli_query($conexion, $sql);
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="card shadow-sm p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">

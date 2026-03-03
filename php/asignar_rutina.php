@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('entrenador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_entrenador = $_SESSION['id_usuario'];
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Rutina asignada correctamente.";
 }
 ?>
-<?php include 'navbar.php'; ?> 
+<?php include './utilidades/navbar.php'; ?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>

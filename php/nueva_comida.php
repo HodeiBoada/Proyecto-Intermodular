@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="col-md-6 mx-auto">
             <div class="card shadow p-4">

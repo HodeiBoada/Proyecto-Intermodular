@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['usuario', 'entrenador', 'administrador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<?php include 'navbar.php'; ?> 
+<?php include './utilidades/navbar.php'; ?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,6 +1,6 @@
 <?php
-include 'seguridad.php';
-include 'conexion.php';
+include './utilidades/seguridad.php';
+include './utilidades/conexion.php';
 
 $id_usuario = $_SESSION['id_usuario'];
 $rol_sesion = $_SESSION['rol'];
@@ -108,7 +108,7 @@ if ($rol_sesion === 'administrador' || $rol_sesion === 'usuario') {
     </style>
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     
     <div class="container mt-5">
         <div class="row">
@@ -281,7 +281,7 @@ if ($rol_sesion === 'administrador' || $rol_sesion === 'usuario') {
             confirmButtonText: 'Sí, darme de baja',
             cancelButtonText: 'Cancelar',
             confirmButtonColor: '#d33'
-        }).then((result) => { if (result.isConfirmed) window.location.href='borrado_logico.php'; });
+        }).then((result) => { if (result.isConfirmed) window.location.href='./utilidades/borrado_logico.php'; });
     }
     </script>
 </body>

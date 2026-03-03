@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +14,7 @@ include 'conexion.php';
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Panel de Control Administrativo</h2>
         <div class="row g-4">
@@ -73,7 +73,7 @@ include 'conexion.php';
                 <div class="card h-100 shadow-sm">
                     <div class="card-body text-center">
                         <h5>Cerrar Sesión</h5>
-                        <a href="logout.php" class="btn btn-dark w-100">Cerrar Sesión</a>
+                        <a href="./utilidades/logout.php" class="btn btn-dark w-100">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>

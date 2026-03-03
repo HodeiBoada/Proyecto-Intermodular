@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $mensaje_toastr = "";
 $correo_creado = "";
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">

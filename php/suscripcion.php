@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('usuario');
-include 'conexion.php';
+include './utilidades/conexion.php';
 $id_usuario = $_SESSION['id_usuario'];
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $id_usuario = $_SESSION['id_usuario'];
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="card shadow-sm p-4 p-md-5 mb-5" style="border-radius: 25px; border: none;">
             <div class="text-center mb-5">
@@ -101,7 +101,7 @@ $id_usuario = $_SESSION['id_usuario'];
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(orderData) {
-                        fetch('procesar_pago.php', {
+                        fetch('./utilidades/procesar_pago.php', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify({

@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $mensaje_toastr = "";
 
@@ -49,13 +49,13 @@ $entrenadores = mysqli_fetch_all($res_entrenadores, MYSQLI_ASSOC);
     <link rel="stylesheet" href="../css/estilo_global.css">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
 
     <div class="container mt-5">
         <div class="card shadow-sm p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="text-primary">Asignar Clientes</h2>
-                <a href="menu_administrador.php" class="btn btn-outline-secondary btn-sm">Volver al Menú</a>
+                <a href="./utilidades/menu_administrador.php" class="btn btn-outline-secondary btn-sm">Volver al Menú</a>
             </div>
             <hr>
             <?php if ($total_libres > 0): ?>

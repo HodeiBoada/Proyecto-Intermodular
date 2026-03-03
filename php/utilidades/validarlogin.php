@@ -36,3 +36,4 @@ if ($usuario && password_verify($clave, $usuario['password_hash'])) {
     header("Location: login.php?error=invalid_credentials");
     exit();
 }
+?>

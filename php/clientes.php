@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['entrenador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_entrenador = $_SESSION['id_usuario'];
 
@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($res)) {
   <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-  <?php include 'navbar.php'; ?> <div class="container">
+  <?php include './utilidades/navbar.php'; ?> <div class="container">
   <h1>Bienvenido, entrenador</h1>
   <h2>Selecciona un cliente para iniciar sesión privada:</h2>
   <ul>

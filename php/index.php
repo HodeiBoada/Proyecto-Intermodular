@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['usuario', 'entrenador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_usuario = $_SESSION['id_usuario'];
 $rol = $_SESSION['rol'];
@@ -62,7 +62,7 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
 
 </head>
 <body>
-  <?php include 'navbar.php'; ?> 
+  <?php include './utilidades/navbar.php'; ?> 
 
   <div class="container mt-5">
     <?php if (!$id_entrenador || !$id_cliente): ?>
@@ -111,7 +111,7 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
             <div class="col-md-6">
                 <div class="card shadow-sm p-4 h-100" style="border-radius: 20px; border: none;">
                   <h2 class="h5 fw-bold">Compartir archivo (PDF)</h2>
-                  <form action="subir_archivo.php" id="zona-subida" class="dropzone mt-2" style="border-radius: 15px; border: 2px dashed #ccc;"></form>
+                  <form action="./utilidades/subir_archivo.php" id="zona-subida" class="dropzone mt-2" style="border-radius: 15px; border: 2px dashed #ccc;"></form>
                   <p class="note mt-2 small text-muted">Sube tu rutina o dieta en PDF para verla en la sesión.</p>
                   <ul id="lista-archivos" class="historial-list mt-3"></ul>
                 </div>

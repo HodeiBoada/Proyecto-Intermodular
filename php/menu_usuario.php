@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('usuario');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 // --- LÓGICA DE VERIFICACIÓN DE SUSCRIPCIÓN ---
 $id_user = $_SESSION['id_usuario'];
@@ -31,7 +31,7 @@ if ($user_status) {
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Bienvenido a tu Panel Personal</h2>
 

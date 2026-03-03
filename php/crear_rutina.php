@@ -1,11 +1,11 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 // Permitimos que ambos entren en este archivo
 if ($_SESSION['rol'] !== 'entrenador' && $_SESSION['rol'] !== 'administrador') {
     header("Location: login.php");
     exit;
 }
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_autor = $_SESSION['id_usuario'];
 $rol_autor = $_SESSION['rol'];
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include 'navbar.php'; ?>
+<?php include './utilidades/navbar.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

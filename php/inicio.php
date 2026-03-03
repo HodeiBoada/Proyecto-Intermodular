@@ -11,7 +11,7 @@
 </head>
 <body class="landing-body">
 
-    <?php include 'navbar.php'; ?> 
+    <?php include './utilidades/navbar.php'; ?> 
     <div class="container main-content-wrapper">
         <div class="text-center py-5">
             <h1 class="display-4 fw-bold mb-3">TU CUERPO, TU MOMENTO</h1>

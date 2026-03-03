@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_autor = $_SESSION['id_usuario'];
 
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="card shadow p-4">
             <h2 class="text-success mb-4">Nueva Plantilla de Dieta (Admin)</h2>

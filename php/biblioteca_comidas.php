@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['entrenador', 'administrador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $rol_sesion = $_SESSION['rol'];
 $resultado = mysqli_query($conexion, "SELECT * FROM comidas ORDER BY tipo, nombre");
@@ -19,7 +19,7 @@ $resultado = mysqli_query($conexion, "SELECT * FROM comidas ORDER BY tipo, nombr
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-<?php include 'navbar.php'; ?> 
+<?php include './utilidades/navbar.php'; ?> 
 
 <div class="container mt-5">
     <div class="card p-4 shadow-sm">

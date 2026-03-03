@@ -13,3 +13,4 @@ function verificarRoles($rolesPermitidos) {
         exit;
     }
 }
+?>

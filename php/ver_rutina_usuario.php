@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('usuario');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -62,7 +62,7 @@ $dias_texto = [
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
 
     <div class="container mt-4">
         <?php if ($datos_rutina): ?>

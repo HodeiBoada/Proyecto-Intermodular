@@ -3,9 +3,9 @@
 error_reporting(0);
 ob_start(); // Iniciamos un buffer de salida
 
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['usuario', 'entrenador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 // Limpiamos cualquier espacio o aviso previo
 ob_clean();

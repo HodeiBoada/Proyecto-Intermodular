@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('entrenador');
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 $id_entrenador = $_SESSION['id_usuario'];
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/estilo_global.css">
 </head>
 <body>
-    <?php include 'navbar.php'; ?> 
+    <?php include './utilidades/navbar.php'; ?> 
     <div class="container">
 <h2>Asignar Dieta a Usuario</h2>
 <form method="post">

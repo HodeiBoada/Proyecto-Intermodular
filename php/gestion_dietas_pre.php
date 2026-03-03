@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRoles(['administrador', 'entrenador']);
-include 'conexion.php';
+include './utilidades/conexion.php';
 
 // Consulta adaptada a tu imagen: usamos 'descripcion' en lugar de 'objetivo'
 $sql = "SELECT d.id_dieta, d.nombre, d.descripcion, u.nombre AS creador_nombre, u.apellido1 AS creador_apellido
@@ -25,7 +25,7 @@ $resultado = mysqli_query($conexion, $sql);
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
     <div class="container mt-5">
         <div class="card shadow-sm p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">

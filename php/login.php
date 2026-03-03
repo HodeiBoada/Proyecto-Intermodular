@@ -20,7 +20,7 @@ if (isset($_SESSION['id_usuario'])) {
 <body>
     <div class="container">
     <h2>Acceso a FitnessGym</h2>
-    <form action="validarlogin.php" method="post">
+    <form action="./utilidades/validarlogin.php" method="post">
         <input type="email" name="correo" placeholder="Correo" required><br>
         <input type="password" name="clave" placeholder="Contraseña" required><br>
         <button class="btn btn-secondary" type="submit">Entrar</button>

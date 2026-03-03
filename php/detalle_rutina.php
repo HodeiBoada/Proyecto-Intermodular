@@ -1,6 +1,6 @@
 <?php
-include 'seguridad.php';
-include 'conexion.php';
+include './utilidades/seguridad.php';
+include './utilidades/conexion.php';
 
 $id_rutina = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -43,7 +43,7 @@ function nombreDia($num) {
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body style="background-color: #f8f9fa;">
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
 
     <div class="container mt-5">
         <div class="card shadow border-0 p-4" style="border-radius: 25px;">

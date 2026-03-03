@@ -1,7 +1,7 @@
 <?php
-include 'seguridad.php';
+include './utilidades/seguridad.php';
 verificarRol('administrador'); 
-include 'conexion.php';
+include './utilidades/conexion.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ include 'conexion.php';
     <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include './utilidades/navbar.php'; ?>
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -96,7 +96,7 @@ include 'conexion.php';
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirigimos al script de borrado si confirma
-                        window.location.href = `borrado_logico.php?id=${id}`;
+                        window.location.href = `./utilidades/borrado_logico.php?id=${id}`;
                     }
                 });
             });
