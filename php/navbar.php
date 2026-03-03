@@ -49,19 +49,39 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
         margin-left: auto;
         margin-right: auto;
     }
-    .nav-logo { font-size: 1.5rem; font-weight: bold; color: #764ba2; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre la imagen y el texto */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #764ba2;
+    text-decoration: none;
+}    
+.nav-links { display: flex; gap: 20px; align-items: center; }
     .nav-links a { text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
     .nav-links a:hover { color: #667eea; }
     .nav-user { display: flex; align-items: center; gap: 15px; }
     .user-chip { background: #f1f2f6; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+    .logo-img {
+    height: 60px;
+    width: auto;
+}
+.logo{
+    display: flex;          /* Activa la alineación horizontal */
+    align-items: center;    /* Centra verticalmente el logo con el texto */
+    gap: 10px;              /* El espacio exacto que quieres entre la foto y el nombre */
+}
 </style>
 
 <nav class="fitness-nav">
-    <a href="<?php echo $pagina_inicio; ?>" class="nav-logo">
-        FITNESSGYM
-    </a>
-
+    <div class="logo">
+        <img src="../img/logoProyecto.png" alt="Logo" class="logo-img">
+        <a href="<?php echo $pagina_inicio; ?>" class="nav-logo">
+            FITNESSGYM
+        </a>
+    </div>
+    
     <div class="nav-links">        
         <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador'): ?>
             <a href="menu_entrenador.php">Inicio</a>
