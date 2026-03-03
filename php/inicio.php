@@ -10,9 +10,7 @@
 </head>
 <body class="landing-body">
 
-      <?php include 'navbar.php'; ?> 
-
-
+    <?php include 'navbar.php'; ?> 
     <div class="container main-content-wrapper">
         <div class="text-center py-5">
             <h1 class="display-4 fw-bold mb-3">TU CUERPO, TU MOMENTO</h1>
@@ -51,7 +49,7 @@
                 </div>
                
                 <div class="price-body text-center d-flex flex-column justify-content-center">
-                    <h2 class="display-3 fw-bold">9.99€</h2>
+                    <h2 class="precio display-3 fw-bold">9.99€</h2>
                     <p class="text-muted small">Acceso total por 30 días a todos los recursos.</p>
                 </div>
                
@@ -71,7 +69,7 @@
                 </div>
                
                 <div class="price-body text-center d-flex flex-column justify-content-center">
-                    <h2 class="display-3 fw-bold">24.99€</h2>
+                    <h2 class="precio display-3 fw-bold">24.99€</h2>
                     <p class="text-muted small">Ahorra un 15% con el pago cada tres meses.</p>
                 </div>
                
@@ -91,7 +89,7 @@
                 </div>
                
                 <div class="price-body text-center d-flex flex-column justify-content-center">
-                    <h2 class="display-3 fw-bold">89.99€</h2>
+                    <h2 class="precio display-3 fw-bold">89.99€</h2>
                     <p class="text-muted small">La mejor oferta para usuarios comprometidos.</p>
                 </div>
                

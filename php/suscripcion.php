@@ -8,7 +8,7 @@ $id_usuario = $_SESSION['id_usuario'];
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Planes de Suscripción | FitnessGym</title>
+    <title>Planes de Suscripción</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/estilo_global.css">
@@ -74,6 +74,13 @@ $id_usuario = $_SESSION['id_usuario'];
                         </ul>
                         <div class="btn-paypal-container" id="paypal-anual"></div>
                     </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <div class="col-12 col-md-6">
+                    <a href="menu_usuario.php" class="btn btn-danger w-100 shadow-sm">
+                        </i> Volver al Menú Principal
+                    </a>
                 </div>
             </div>
         </div>

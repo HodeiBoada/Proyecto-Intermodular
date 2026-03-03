@@ -214,3 +214,8 @@ table.dataTable tbody tr td:last-child { border-radius: 0 15px 15px 0; }
         position: relative; 
     }
 
+.precio{
+    text-align: center; 
+    margin: 0 auto;
+    
+}
