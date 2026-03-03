@@ -44,7 +44,6 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
     .nav-links a { text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
     .nav-links a:hover { color: #667eea; }
     .nav-user { display: flex; align-items: center; gap: 15px; }
-    .online-dot { width: 10px; height: 10px; background: #4cd137; border-radius: 50%; box-shadow: 0 0 10px #4cd137; }
     .user-chip { background: #f1f2f6; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
 </style>
 
