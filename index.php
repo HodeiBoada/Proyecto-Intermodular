@@ -47,37 +47,31 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://meet.jit.si/external_api.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
   <link rel="stylesheet" href="estilos.css" />
-  
+  <link rel="stylesheet" href="estilo_global.css">
   <script>
     const idUsuario = <?= json_encode($id_usuario) ?>;
     const idEntrenador = <?= json_encode($id_entrenador) ?>;
     let nombreSala = "<?= $nombre_sala ?>";
   </script>
   <script src="prueba.js" defer></script>
+
 </head>
 <body>
   <?php include 'navbar.php'; ?> 
 
   <div class="container mt-5">
-    
     <?php if (!$id_entrenador || !$id_cliente): ?>
-        <div class="card shadow-sm p-5 text-center" style="border-radius: 25px; border: none; max-width: 700px; margin: auto;">
-            <div class="card-body">
-                <div class="mb-4">
-                    <i class="fas fa-user-slash fa-4x text-muted"></i>
-                </div>
-                <h2 class="fw-bold text-dark mb-3">No tienes un entrenador asignado</h2>
-                <p class="text-muted mb-4">
-                    Para acceder a la sala virtual y comenzar tus videollamadas, necesitas que un administrador te asigne un entrenador personal.
-                </p>
-                <a href="menu_usuario.php" class="btn btn-primary px-4 py-2" style="border-radius: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
-                    Volver al Inicio
-                </a>
-            </div>
+        <div class="card p-5 text-center" style="background: rgba(255,255,255,0.8);">
+          <h3 class="text-muted">No tienes un entrenador asignado</h3>
+          <p>Los administradores aún no han configurado la gestión de tu entrenador.</p>
+          <div class="mt-4 text-center">
+            <a href="menu_usuario.php" class="btn btn-secondary">Volver al menú</a>
+          </div>
         </div>
-
     <?php else: ?>
         <div class="text-center mb-4">
             <h1 class="fw-bold">FITNESSGYM</h1>
@@ -93,13 +87,12 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
           <div class="room-controls d-flex gap-2 flex-wrap mb-3">
             <input type="hidden" id="room-name" value="<?= $nombre_sala ?>" />
             <button id="boton-unirse" class="btn btn-primary px-4">Unirse a la videollamada</button>
-            
             <?php if ($rol === 'usuario'): ?>
-                <button id="boton-ayuda" class="btn btn-outline-secondary px-4">Solicitar ayuda</button>
+                <button id="boton-ayuda" class="btn btn-primary px-4">Solicitar ayuda</button>
             <?php endif; ?>
-
+            <a href="menu_usuario.php" class="btn btn-primary px-4">Volver al menú</a>
           </div>
-          
+          <br>
           <div id="room-status" class="mb-3">
             <span class="badge bg-light text-dark p-2">Sala: <?= $nombre_sala ?></span>
           </div>
@@ -131,7 +124,7 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
             </div>
         </div>
     <?php endif; ?>
-
+              
   </div>
 </body>
 </html>

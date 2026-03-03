@@ -53,40 +53,45 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
         <div class="online-dot"></div> FITNESSGYM
     </a>
 
-    <div class="nav-links">
-        <a href="<?php echo $pagina_inicio; ?>">Inicio</a>
-        
+    <div class="nav-links">        
         <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador'): ?>
+                    <a href="<?php echo $pagina_inicio; ?>">Inicio</a>
             <a href="clientes.php">Mis Clientes</a>
             <a href="biblioteca_ejercicios.php">Ejercicios</a>
             <a href="biblioteca_comidas.php">Comidas</a>
             <a href="gestion_rutinas_pre.php">Rutinas</a>
             <a href="gestion_dietas_pre.php">Dietas</a>
-        <?php endif; ?>
         
-        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'administrador'): ?>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] === 'administrador'): ?>
+                    <a href="<?php echo $pagina_inicio; ?>">Inicio</a>
             <a href="baja_entrenador.php">Staff</a>
             <a href="asignar_clientes.php">Asignar Clientes</a>
             <a href="biblioteca_ejercicios.php">Ejercicios</a>
             <a href="biblioteca_comidas.php">Comidas</a>
             <a href="gestion_rutinas_pre.php">Rutinas</a>
             <a href="gestion_dietas_pre.php">Dietas</a>
-        <?php endif; ?>
 
-        <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'usuario'): ?>
+        <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] === 'usuario'): ?>
+                <a href="<?php echo $pagina_inicio; ?>">Inicio</a>
             <a href="ver_rutina_usuario.php">Mi Rutina</a>
             <a href="ver_dieta_usuario.php">Mi Dieta</a>
             <a href="index.php">Sala virtual</a>
             <a href="perfil.php">Mi Perfil</a>
+        <?php else: ?>
         <?php endif; ?>
     </div>
-
+    <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador' || isset($_SESSION['rol']) && $_SESSION['rol'] === 'administrador' || isset($_SESSION['rol']) && $_SESSION['rol'] === 'usuario'): ?>
     <div class="nav-user">
         <div class="user-chip">
             <strong><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></strong>
         </div>
         <a href="logout.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Salir</a>
     </div>
+    <?php else: ?>
+    <div class="nav-user">
+        <a href="login.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Iniciar sesión</a>
+    </div>
+    <?php endif; ?>
 </nav>
 
 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador'): ?>

@@ -10,14 +10,8 @@
 </head>
 <body class="landing-body">
 
-    <nav class="header-custom d-flex justify-content-between align-items-center">
-        <div class="brand-section">
-            <span class="navbar-brand fw-bold">FITNESSGYM</span>
-        </div>
-        <div class="auth-section">
-            <a href="login.php" class="btn btn-login-outline me-2">Iniciar Sesión</a>
-        </div>
-    </nav>
+      <?php include 'navbar.php'; ?> 
+
 
     <div class="container main-content-wrapper">
         <div class="text-center py-5">
