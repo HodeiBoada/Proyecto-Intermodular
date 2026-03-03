@@ -11,7 +11,7 @@ if (isset($_SESSION['id_usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="estilo_global.css">
+    <link rel="stylesheet" href="../css/estilo_global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
