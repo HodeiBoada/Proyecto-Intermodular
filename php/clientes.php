@@ -24,6 +24,7 @@ while ($row = mysqli_fetch_assoc($res)) {
   <meta charset="UTF-8">
   <title>Mis Clientes</title>
   <link rel="stylesheet" href="../css/estilo_global.css">
+  <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
   <?php include 'navbar.php'; ?> <div class="container">

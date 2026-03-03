@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Crear Plantilla de Rutina</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilo_global.css">
+    <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
     <?php include 'navbar.php'; ?>

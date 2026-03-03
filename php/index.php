@@ -52,6 +52,7 @@ $nombre_sala = ($id_entrenador && $id_cliente) ? "sala-$id_entrenador-$id_client
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
   <link rel="stylesheet" href="../css/estilos.css" />
   <link rel="stylesheet" href="../css/estilo_global.css">
+  <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
   <script>
     const idUsuario = <?= json_encode($id_usuario) ?>;
     const idEntrenador = <?= json_encode($id_entrenador) ?>;

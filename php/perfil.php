@@ -96,7 +96,7 @@ if ($rol_sesion === 'administrador' || $rol_sesion === 'usuario') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="../css/estilo_global.css">
-    
+    <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
     <style>
         .card { border-radius: 20px; border: none; }
         .room-input { border-radius: 10px; border: 1px solid #ddd; padding: 10px; width: 100%; }

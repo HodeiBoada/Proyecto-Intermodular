@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
     <meta charset="UTF-8">
     <title>Asignar Dieta</title>
     <link rel="stylesheet" href="../css/estilo_global.css">

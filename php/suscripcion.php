@@ -14,6 +14,7 @@ $id_usuario = $_SESSION['id_usuario'];
     <link rel="stylesheet" href="../css/estilo_global.css">
     <script src="https://www.paypal.com/sdk/js?client-id=AZkfX5X9wsmTLljFwak3oIHgUmiQDt4RHZN1fwqVGyfZVSyF_6KwL1_cam-KDhmULRLKfVvHgYBG8WJD&currency=EUR"></script>
     <link rel="stylesheet" href="../css/estilo_suscripcion.css">
+    <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
 <body>
     <?php include 'navbar.php'; ?>
