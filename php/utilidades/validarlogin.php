@@ -28,7 +28,7 @@ if ($usuario && password_verify($clave, $usuario['password_hash'])) {
     $_SESSION['rol'] = $usuario['rol'];
     $_SESSION['id_entrenador'] = $usuario['id_entrenador'];
     
-    header("Location: menu_" . $usuario['rol'] . ".php");
+    header("Location: ../menu_" . $usuario['rol'] . ".php");
     exit();
 
 } else {

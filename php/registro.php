@@ -89,12 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </button>
                 </div>
 
-                <div class="mb-3">
-                    <label class="small" style="cursor:pointer;">
-                        <input type="checkbox" name="suscrito"> Solicitar suscripción Premium
-                    </label>
-                </div>
-
                 <button class="btn btn-submit" type="submit">Registrarse</button>
             </form>
             <div class="text-center mt-3">
