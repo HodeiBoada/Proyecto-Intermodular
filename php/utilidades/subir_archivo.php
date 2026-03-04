@@ -3,9 +3,9 @@
 error_reporting(0);
 ob_start(); // Iniciamos un buffer de salida
 
-include './utilidades/seguridad.php';
+include 'seguridad.php';
 verificarRoles(['usuario', 'entrenador']);
-include './utilidades/conexion.php';
+include 'conexion.php';
 
 // Limpiamos cualquier espacio o aviso previo
 ob_clean();
@@ -36,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     }
 
     // Crear carpeta si no existe
-    if (!file_exists('uploads')) {
-        mkdir('uploads', 0777, true);
+    if (!file_exists('../../uploads')) {
+        mkdir('../../uploads', 0777, true);
     }
 
     $nombreSeguro = time() . '_' . preg_replace('/[^a-zA-Z0-9_\.-]/', '_', $nombreOriginal);
-    $destino = 'uploads/' . $nombreSeguro;
+    $destino = '../../uploads/' . $nombreSeguro;
 
     if (move_uploaded_file($archivo['tmp_name'], $destino)) {
         
@@ -70,3 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No se recibió ningún archivo']);
 }
+
+?>

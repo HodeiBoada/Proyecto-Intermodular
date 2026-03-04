@@ -99,7 +99,7 @@ if ($user_status) {
                 <div class="card h-100 shadow-sm">
                     <div class="card-body text-center">
                         <h5>Cerrar Sesión</h5>
-                        <a href="logout.php" class="btn btn-danger w-100">Cerrar Sesión</a>
+                        <a href="./utilidades/logout.php" class="btn btn-danger w-100">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
