@@ -40,7 +40,6 @@ $resultado = mysqli_query($conexion, "SELECT * FROM ejercicios ORDER BY categori
                     <th>Dificultad</th>
                     <th>Descripción</th>
                     <th>Instrucciones</th>
-                    <th>Imagen</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,13 +54,6 @@ $resultado = mysqli_query($conexion, "SELECT * FROM ejercicios ORDER BY categori
                         </td>
                         <td><small><?= htmlspecialchars($fila['descripcion']) ?></small></td>
                         <td><small><?= htmlspecialchars($fila['instrucciones']) ?></small></td>
-                        <td>
-                            <?php if ($fila['imagen_url']): ?>
-                                <img src="imagenes/<?= htmlspecialchars($fila['imagen_url']) ?>" alt="Imagen" width="60" class="rounded shadow-sm">
-                            <?php else: ?>
-                                <span class="text-muted small">Sin imagen</span>
-                            <?php endif; ?>
-                        </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>

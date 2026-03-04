@@ -78,7 +78,7 @@ function guardarLlamada() {
             duracion: duracionMin
         };
 
-        fetch('guardar_llamada.php', {
+        fetch('./utilidades/guardar_llamada.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
@@ -98,7 +98,7 @@ function guardarLlamada() {
 function mostrarHistorial() {
     if (!nombreSala) return;
 
-    $.getJSON('leer_historial.php', { sala: nombreSala }, (historial) => {
+    $.getJSON('./utilidades/leer_historial.php', { sala: nombreSala }, (historial) => {
         const contenedor = $('#historial-sesiones');
         if (!contenedor.length) return;
 
@@ -125,7 +125,7 @@ function mostrarHistorial() {
 // --- NOTIFICACIONES Y AYUDA ---
 
 function enviarNotificacion(tipo, contenido) {
-    $.post('enviar_notificacion.php', { tipo, contenido, sala: nombreSala }, (data) => {
+    $.post('./utilidades/enviar_notificacion.php', { tipo, contenido, sala: nombreSala }, (data) => {
         // Verificamos si data es un objeto (JSON)
         if (data && data.status === 'ok') {
             toastr.info(`Notificación enviada: ${tipo}`);
@@ -171,7 +171,7 @@ if ($zona.length > 0) { // Verificamos que el elemento existe
         }
 
         new Dropzone('#zona-subida', {
-            url: "subir_archivo.php",
+            url: "./utilidades/subir_archivo.php",
             acceptedFiles: ".pdf",
             maxFilesize: 5,
             dictDefaultMessage: "Arrastra tu archivo PDF aquí o haz clic",
@@ -198,7 +198,7 @@ if ($zona.length > 0) { // Verificamos que el elemento existe
     setInterval(() => {
         if (typeof nombreSala === 'undefined' || !nombreSala) return;
 
-        $.getJSON('leer_notificaciones.php', { sala: nombreSala }, (data) => {
+        $.getJSON('./utilidades/leer_notificaciones.php', { sala: nombreSala }, (data) => {
             const $lista = $('#lista-archivos');
             if (!$lista.length || !Array.isArray(data)) return;
 
