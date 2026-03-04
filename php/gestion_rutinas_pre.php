@@ -86,7 +86,17 @@ $resultado = mysqli_query($conexion, $sql);
     <script>
         $(document).ready(function() {
             $('#tablaRutinas').DataTable({
-                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                "language": {
+                    "sSearch": "Filtrar rutinas:",
+                    "sLengthMenu": "Ver _MENU_",
+                    "sZeroRecords": "No hay rutinas en tu plan",
+                    "sInfo": "Total: _TOTAL_ rutinas",
+                    "sInfoEmpty": "Sin datos",
+                    "oPaginate": {
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
                 "lengthChange": false,
                 "pageLength": 8,
                 "info": false

@@ -1,6 +1,7 @@
 <?php
 include './utilidades/seguridad.php';
 include './utilidades/conexion.php';
+verificarRoles(rolesPermitidos: ['administrador', 'entrenador']);
 
 $id_dieta = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -96,7 +97,17 @@ $total_comidas = mysqli_num_rows($resultado);
         $(document).ready(function() {
             if ($('#tablaDietasDetalle').length) {
                 $('#tablaDietasDetalle').DataTable({
-                    "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                    "language": {
+                        "sSearch": "Filtrar comidas:",
+                        "sLengthMenu": "Ver _MENU_",
+                        "sZeroRecords": "No hay comidas en tu plan",
+                        "sInfo": "Total: _TOTAL_ comidas",
+                        "sInfoEmpty": "Sin datos",
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
                     "dom": 'ftip',
                     "ordering": false,
                     "pageLength": 10

@@ -74,7 +74,17 @@ $resultado = mysqli_query($conexion, "SELECT * FROM ejercicios ORDER BY categori
 <script>
     $(document).ready(function() {
         $('#tablaEjercicios').DataTable({
-            "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+            "language": {
+                "sSearch": "Filtrar ejercicios:",
+                "sLengthMenu": "Ver _MENU_",
+                "sZeroRecords": "No hay ejercicios en tu plan",
+                "sInfo": "Total: _TOTAL_ ejercicios",
+                "sInfoEmpty": "Sin datos",
+                "oPaginate": {
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
             "lengthChange": false,
             "pageLength": 5,
             "order": [[0, 'asc']], // Ordenamos por Nombre

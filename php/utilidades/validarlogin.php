@@ -33,7 +33,7 @@ if ($usuario && password_verify($clave, $usuario['password_hash'])) {
 
 } else {
     // Si no existe el correo o la contraseña no coincide
-    header("Location: login.php?error=invalid_credentials");
+    header("Location: ../login.php?error=credenciales_invalidas");
     exit();
 }
 ?>

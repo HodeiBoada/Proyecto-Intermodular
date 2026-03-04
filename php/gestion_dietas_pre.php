@@ -87,7 +87,17 @@ $resultado = mysqli_query($conexion, $sql);
     <script>
         $(document).ready(function() {
             $('#tablaDietas').DataTable({
-                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                "language": {
+                    "sSearch": "Filtrar dietas:",
+                    "sLengthMenu": "Ver _MENU_",
+                    "sZeroRecords": "No hay dietas en tu plan",
+                    "sInfo": "Total: _TOTAL_ dietas",
+                    "sInfoEmpty": "Sin datos",
+                    "oPaginate": {
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
                 "lengthChange": false,
                 "pageLength": 8,
                 "info": false

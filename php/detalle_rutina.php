@@ -1,6 +1,7 @@
 <?php
 include './utilidades/seguridad.php';
 include './utilidades/conexion.php';
+verificarRoles(rolesPermitidos: ['administrador', 'entrenador']);
 
 $id_rutina = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -104,7 +105,17 @@ function nombreDia($num) {
         $(document).ready(function() {
             if ($('#tablaDetalles').length) {
                 $('#tablaDetalles').DataTable({
-                    "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                    "language": {
+                        "sSearch": "Filtrar ejercicios:",
+                        "sLengthMenu": "Ver _MENU_",
+                        "sZeroRecords": "No hay ejercicios en tu plan",
+                        "sInfo": "Total: _TOTAL_ ejercicios",
+                        "sInfoEmpty": "Sin datos",
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
                     "dom": 'ftip',
                     "ordering": false 
                 });

@@ -114,7 +114,17 @@ $entrenadores = mysqli_fetch_all($res_entrenadores, MYSQLI_ASSOC);
             // Solo inicializamos DataTable si la tabla existe en el DOM
             if ($('#tablaAsignar').length) {
                 $('#tablaAsignar').DataTable({
-                    "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                    "language": {
+                        "sSearch": "Filtrar:",
+                        "sLengthMenu": "Ver _MENU_",
+                        "sZeroRecords": "No hay datos",
+                        "sInfo": "Total: _TOTAL_ clientes",
+                        "sInfoEmpty": "Sin datos",
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
                     "pageLength": 10,
                     "lengthChange": false,
                     "info": false,

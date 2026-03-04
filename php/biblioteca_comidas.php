@@ -68,7 +68,17 @@ $resultado = mysqli_query($conexion, "SELECT * FROM comidas ORDER BY tipo, nombr
 <script>
     $(document).ready(function() {
         $('#tablaComidas').DataTable({
-            "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+            "language": {
+                "sSearch": "Filtrar comidas:",
+                "sLengthMenu": "Ver _MENU_",
+                "sZeroRecords": "No hay comidas en tu plan",
+                "sInfo": "Total: _TOTAL_ comidas",
+                "sInfoEmpty": "Sin datos",
+                "oPaginate": {
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
             "pageLength": 5,
             "lengthChange": false,
             "responsive": true

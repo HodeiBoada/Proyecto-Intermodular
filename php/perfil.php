@@ -1,6 +1,7 @@
 <?php
 include './utilidades/seguridad.php';
 include './utilidades/conexion.php';
+verificarRoles(['usuario', 'entrenador', 'administrador']);
 
 $id_usuario = $_SESSION['id_usuario'];
 $rol_sesion = $_SESSION['rol'];
@@ -268,7 +269,17 @@ if ($rol_sesion === 'administrador' || $rol_sesion === 'usuario') {
         $('.table').DataTable({
             "pageLength": 5,
             "dom": 'tp',
-            "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" }
+            "language": {
+                "sSearch": "Filtrar:",
+                "sLengthMenu": "Ver _MENU_",
+                "sZeroRecords": "No hay datos",
+                "sInfo": "Total: _TOTAL_ registros",
+                "sInfoEmpty": "Sin datos",
+                "oPaginate": {
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
         });
     });
 

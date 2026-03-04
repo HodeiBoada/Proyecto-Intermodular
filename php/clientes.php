@@ -1,6 +1,6 @@
 <?php
 include './utilidades/seguridad.php';
-verificarRoles(['entrenador']);
+verificarRol('entrenador');
 include './utilidades/conexion.php';
 
 $id_entrenador = $_SESSION['id_usuario'];
