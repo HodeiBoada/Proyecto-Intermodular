@@ -99,6 +99,14 @@ $resultado = mysqli_query($conexion, "SELECT id_ejercicio, nombre, categoria, di
                 <?php endwhile; ?>
             </tbody>
         </table>
+        <div class="mt-4">
+                <?php 
+                    $url_volver = ($_SESSION['rol'] === 'administrador') ? 'menu_administrador.php' : 'menu_entrenador.php';
+                ?>
+                <a href="<?= $url_volver ?>" class="btn btn-secondary shadow-sm">
+                    Volver al Menú
+                </a>
+            </div>
     </div>
 </div>
 

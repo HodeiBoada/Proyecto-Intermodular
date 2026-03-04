@@ -11,11 +11,10 @@ $id_autor = $_SESSION['id_usuario'];
 $rol_autor = $_SESSION['rol'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $objetivo = $_POST['objetivo'];
+    $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
+    $objetivo = mysqli_real_escape_string($conexion, $_POST['objetivo']);
     
-    // LÓGICA AUTOMÁTICA: 
-    // Si es admin, es predefinida (1). Si es entrenador, no lo es (0).
+    // Lógica automática: Admin -> predefinida (1), Entrenador -> no (0)
     $es_predefinida = ($rol_autor === 'administrador') ? 1 : 0;
 
     $sql = "INSERT INTO rutinas (nombre, objetivo, creada_por, es_predefinida) VALUES (?, ?, ?, ?)";
@@ -42,79 +41,124 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    echo "<p>Rutina creada correctamente como " . ($es_predefinida ? "PREDEFINIDA" : "PERSONALIZADA") . ".</p>";
-    echo "<a href='menu_" . $rol_autor . ".php' class='btn btn-secondary'>Volver al menú</a>";
+    // Redirección dinámica según el rol
+    $destino = ($rol_autor === 'administrador') ? 'gestion_rutinas_pre.php' : 'menu_entrenador.php';
+    header("Location: $destino?msg=ok");
     exit;
 }
 ?>
 
-<?php include './utilidades/navbar.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crear Rutina</title>
-  <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
-  <link rel="stylesheet" href="../css/estilo_global.css">
+    <meta charset="UTF-8">
+    <title>Crear Nueva Rutina</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilo_global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../img/LogoProyecto.ico">
 </head>
-<body>
-  <div class="container">
-    <h2>Crear Nueva Rutina</h2>
-    <p>Estás creando esta rutina como: <strong><?php echo strtoupper($rol_autor); ?></strong></p>
-    
-    <form method="post">
-        <input type="text" name="nombre" placeholder="Nombre de la rutina" required><br><br>
-        <input type="text" name="objetivo" placeholder="Objetivo (ej: Ganar masa)" required><br><br>
+<body class="bg-light">
+    <?php include './utilidades/navbar.php'; ?>
+    <div class="container mt-5 mb-5">
+        <div class="card shadow p-4 border-0" style="border-radius: 15px;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary"><i class="fa-solid fa-dumbbell me-2"></i>Nueva Rutina</h2>
+                <span class="badge bg-dark px-3 py-2">Modo: <?php echo strtoupper($rol_autor); ?></span>
+            </div>
 
-        <h3>Selecciona los ejercicios y el día:</h3>
-        <?php
-        $res = mysqli_query($conexion, "SELECT * FROM ejercicios");
-        while ($ej = mysqli_fetch_assoc($res)) {
-            $id = $ej['id_ejercicio'];
-            echo "<div class='bloque-ejercicio' style='border: 1px solid #ddd; padding: 10px; margin-bottom: 5px;'>
-                    <label>
-                      <input type='checkbox' name='ejercicio[$id]' value='1' class='check-ejercicio' data-id='{$id}'>
-                      <strong>{$ej['nombre']}</strong>
-                    </label>
-                    <div class='inputs-ejercicio' id='inputs-{$id}' style='display:none; margin-top:10px;'>
-                      Día: 
-                      <select name='dia[$id]'>
-                        <option value='1'>Lunes</option><option value='2'>Martes</option>
-                        <option value='3'>Miércoles</option><option value='4'>Jueves</option>
-                        <option value='5'>Viernes</option><option value='6'>Sábado</option>
-                        <option value='7'>Domingo</option>
-                      </select>
-                      Series: <input type='number' name='series[$id]' min='1' style='width:40px'>
-                      Reps: <input type='number' name='repeticiones[$id]' min='0' style='width:40px'>
-                      Descanso: <input type='number' name='descanso[$id]' min='0' style='width:50px'> s
+            <form method="POST">
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Nombre de la Rutina</label>
+                        <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Ej: Empuje y Tracción" required>
                     </div>
-                  </div>";
-        }
-        ?>
-        <br><button type="submit" class="btn btn-secondary">Guardar Rutina</button>
-    </form>
-    <a href="menu_entrenador.php" class=" volver btn btn-secondary">Volver al menú</a>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Objetivo Principal</label>
+                        <input type="text" name="objetivo" class="form-control form-control-lg" placeholder="Ej: Fuerza Máxima" required>
+                    </div>
+                </div>
 
-  </div>
+                <hr class="my-4">
+                <h4 class="mb-4 text-secondary">Seleccionar Ejercicios y Configuración</h4>
+                
+                <div class="row">
+                    <?php
+                    $res = mysqli_query($conexion, "SELECT * FROM ejercicios ORDER BY nombre ASC");
+                    while ($ej = mysqli_fetch_assoc($res)) {
+                        $id = $ej['id_ejercicio'];
+                        ?>
+                        <div class="col-12 mb-3">
+                            <div class="card p-3 border-light shadow-sm item-ejercicio">
+                                <div class="form-check d-flex align-items-center">
+                                    <input type="checkbox" name="ejercicio[<?php echo $id; ?>]" value="1" 
+                                           class="form-check-input check-ejercicio me-3" 
+                                           data-id="<?php echo $id; ?>" style="width: 20px; height: 20px;">
+                                    <label class="form-check-label fw-bold fs-5"><?php echo $ej['nombre']; ?></label>
+                                </div>
+
+                                <div class="row mt-3 g-2 animate__animated animate__fadeIn" id="inputs-<?php echo $id; ?>" style="display:none;">
+                                    <div class="col-md-3">
+                                        <label class="small text-muted fw-bold">Día:</label>
+                                        <select name="dia[<?php echo $id; ?>]" class="form-select">
+                                            <option value="1">Lunes</option>
+                                            <option value="2">Martes</option>
+                                            <option value="3">Miércoles</option>
+                                            <option value="4">Jueves</option>
+                                            <option value="5">Viernes</option>
+                                            <option value="6">Sábado</option>
+                                            <option value="7">Domingo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small text-muted fw-bold">Series:</label>
+                                        <input type="number" name="series[<?php echo $id; ?>]" class="form-control" placeholder="0" min="1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small text-muted fw-bold">Reps:</label>
+                                        <input type="number" name="repeticiones[<?php echo $id; ?>]" class="form-control" placeholder="0" min="1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small text-muted fw-bold">Descanso (s):</label>
+                                        <input type="number" name="descanso[<?php echo $id; ?>]" class="form-control" placeholder="Segundos" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+
+                <div class="mt-5 pt-3 border-top d-flex gap-3">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">
+                        Guardar Rutina
+                    </button>
+                    <a href="menu_entrenador.php" class="btn btn-outline-secondary btn-lg px-4">
+                        Volver al menú
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    document.querySelectorAll('.check-ejercicio').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const id = this.dataset.id;
+            const divInputs = document.getElementById('inputs-' + id);
+            const inputs = divInputs.querySelectorAll('input, select');
+            
+            if (this.checked) {
+                divInputs.style.display = 'flex';
+                inputs.forEach(i => i.required = true);
+                // Añadimos una clase visual a la card padre
+                this.closest('.item-ejercicio').classList.add('border-primary');
+            } else {
+                divInputs.style.display = 'none';
+                inputs.forEach(i => { i.required = false; i.value = ''; });
+                this.closest('.item-ejercicio').classList.remove('border-primary');
+            }
+        });
+    });
+    </script>
 </body>
 </html>
-
-<script>
-// Script para mostrar inputs solo si el checkbox está marcado
-document.querySelectorAll('.check-ejercicio').forEach(checkbox => {
-    checkbox.addEventListener('change', function () {
-        const id = this.dataset.id;
-        const divInputs = document.getElementById('inputs-' + id);
-        const inputs = divInputs.querySelectorAll('input, select');
-        
-        if (this.checked) {
-            divInputs.style.display = 'block';
-            inputs.forEach(i => i.required = true);
-        } else {
-            divInputs.style.display = 'none';
-            inputs.forEach(i => { i.required = false; i.value = ''; });
-        }
-    });
-});
-</script>

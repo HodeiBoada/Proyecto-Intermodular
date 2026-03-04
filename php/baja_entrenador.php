@@ -76,7 +76,17 @@ include './utilidades/conexion.php';
     <script>
         $(document).ready(function() {
             $('#tablaEntrenadores').DataTable({
-                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json" }
+                "language": {
+                        "sSearch": "Filtrar:",
+                        "sLengthMenu": "Ver _MENU_",
+                        "sZeroRecords": "No hay datos",
+                        "sInfo": "Total: _TOTAL_ entrenadores",
+                        "sInfoEmpty": "Sin datos",
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
             });
 
             // Lógica de SweetAlert2 para el botón de baja
