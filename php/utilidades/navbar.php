@@ -2,8 +2,10 @@
 // --- 1. LÓGICA DE LIMPIEZA DE NOTIFICACIONES (AJAX) ---
 if (isset($_GET['accion']) && $_GET['accion'] === 'limpiar_ayuda') {
     include 'conexion.php';
-    if (session_status() === PHP_SESSION_NONE) { session_start(); }
-    
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     if (isset($_SESSION['id_usuario'])) {
         $id_entrenador = $_SESSION['id_usuario'];
         $sql = "UPDATE notificaciones_sala 
@@ -13,7 +15,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'limpiar_ayuda') {
         mysqli_stmt_bind_param($stmt, "i", $id_entrenador);
         mysqli_stmt_execute($stmt);
     }
-    exit; 
+    exit;
 }
 
 // --- 2. CHEQUEO DE SUSCRIPCIÓN EN TIEMPO REAL ---
@@ -24,7 +26,7 @@ if (isset($_SESSION['id_usuario']) && $_SESSION['rol'] === 'usuario') {
     $check_v = mysqli_query($conexion, "SELECT suscrito FROM usuarios WHERE id_usuario = $id_nav");
     if ($user_v = mysqli_fetch_assoc($check_v)) {
         // Actualizamos la sesión con el valor real de la BD
-        $_SESSION['suscrito'] = $user_v['suscrito']; 
+        $_SESSION['suscrito'] = $user_v['suscrito'];
     }
 }
 
@@ -38,8 +40,8 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
             FITNESSGYM
         </a>
     </div>
-    
-    <div class="nav-links">        
+
+    <div class="nav-links">
         <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador'): ?>
             <a href="menu_entrenador.php">Inicio</a>
             <a href="clientes.php">Mis Clientes</a>
@@ -47,7 +49,7 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
             <a href="biblioteca_comidas.php">Comidas</a>
             <a href="gestion_rutinas_pre.php">Rutinas</a>
             <a href="gestion_dietas_pre.php">Dietas</a>
-        
+
         <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] === 'administrador'): ?>
             <a href="menu_administrador.php">Inicio</a>
             <a href="baja_entrenador.php">Staff</a>
@@ -70,16 +72,16 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
         <?php endif; ?>
     </div>
     <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'entrenador' || isset($_SESSION['rol']) && $_SESSION['rol'] === 'administrador' || isset($_SESSION['rol']) && $_SESSION['rol'] === 'usuario'): ?>
-    <div class="nav-user">
-        <div>
-            <a href="perfil.php" class="btn btn-dark btn-sm px-4"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></a>
+        <div class="nav-user">
+            <div>
+                <a href="perfil.php" class="btn btn-dark btn-sm px-4"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></a>
+            </div>
+            <a href="logout.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Salir</a>
         </div>
-        <a href="logout.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Salir</a>
-    </div>
     <?php else: ?>
-    <div class="nav-user">
-        <a href="login.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Iniciar sesión</a>
-    </div>
+        <div class="nav-user">
+            <a href="login.php" class="btn btn-dark btn-sm px-4" style="border-radius: 20px;">Iniciar sesión</a>
+        </div>
     <?php endif; ?>
 </nav>
 
@@ -87,7 +89,80 @@ $pagina_inicio = "menu_" . ($_SESSION['rol'] ?? 'usuario') . ".php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="../../css/estilos.css">
     <script src="../../js/navbar.js"></script>
+
+    <style>
+        .fitness-nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Espacio entre la imagen y el texto */
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-chip {
+            background: #f1f2f6;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo {
+            display: flex;
+            /* Activa la alineación horizontal */
+            align-items: center;
+            /* Centra verticalmente el logo con el texto */
+            gap: 10px;
+            /* El espacio exacto que quieres entre la foto y el nombre */
+        }
+    </style>
 
 <?php endif; ?>
